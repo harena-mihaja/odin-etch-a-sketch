@@ -8,7 +8,7 @@ const setContainerSize = (numberInPixel) => {
   return;
 };
 
-//dynamically change the container width and height
+//define container width and height
 container.style.width = `${containerLength}px`;
 container.style.height = `${containerLength}px`;
 
@@ -18,7 +18,9 @@ const createGridBy = (gridSize) => {
     newDiv.className = "tile";
     newDiv.style.width = `${containerLength / numberOfTiles}px`;
     newDiv.addEventListener("mouseover", () => {
-      newDiv.style.backgroundColor = "red";
+      newDiv.style.backgroundColor = `rgb(${Math.random() * 255},${
+        Math.random() * 255
+      } ,${Math.random() * 255})`;
     });
     divToAdd.appendChild(newDiv);
   }
