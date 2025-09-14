@@ -1,5 +1,3 @@
----
-
 # 🎮 Odin Etch-a-Sketch
 
 A browser‑based Etch-a-Sketch drawing tool, built as part of [The Odin Project](https://www.theodinproject.com/) curriculum.
