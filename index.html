@@ -9,38 +9,45 @@
   <body>
     <header>
       <h1>Etch a Sketch !</h1>
-      <div>
-        <button onclick="changeGridSize()">Change grid size</button>
-      </div>
-      <div onclick="clearAndCreateGrid()">
-        <button>Clear grid</button>
-      </div>
-      <div>
-        <label for="color-input">Change color</label>
-        <input type="color" name="color-input" id="color-input" />
-      </div>
-      <div>
-        <label for="randomize-checkbox"> Randomize color </label>
-        <input
-          type="checkbox"
-          name="randomize-checkbox"
-          id="randomize-checkbox"
-        />
-      </div>
-      <div>
-        <label for="show-grid-checkbox">Show grid</label>
-        <input
-          type="checkbox"
-          name="show-grid-checkbox"
-          id="show-grid-checkbox"
-        />
+      <div class="option-container">
+        <div>
+          <button class="btn" onclick="changeGridSize()">
+            Change grid size
+          </button>
+        </div>
+        <div>
+          <button class="btn" onclick="clearAndCreateGrid()">Clear grid</button>
+        </div>
+        <div>
+          <label for="color-input">Change color</label>
+          <input type="color" name="color-input" id="color-input" />
+        </div>
+        <div>
+          <label for="randomize-checkbox"> Randomize color </label>
+          <input
+            type="checkbox"
+            name="randomize-checkbox"
+            id="randomize-checkbox"
+          />
+        </div>
+        <div>
+          <label for="show-grid-checkbox">Show grid</label>
+          <input
+            type="checkbox"
+            name="show-grid-checkbox"
+            id="show-grid-checkbox"
+            checked
+          />
+        </div>
       </div>
     </header>
     <main>
-      <div class="container" id="container"></div>
+      <div class="wrapper">
+        <div class="container" id="container"></div>
+      </div>
     </main>
     <footer>
-      <p>Made with love, &copy; Whipander</p>
+      <p>Made with ❤️ Whipander</p>
     </footer>
     <script src="./assets/js/script.js"></script>
   </body>

@@ -1,5 +1,4 @@
 const container = document.getElementById("container");
-const divToAdd = document.createDocumentFragment();
 const colorInput = document.getElementById("color-input");
 const randomizeCheckbox = document.getElementById("randomize-checkbox");
 const showGridCheckbox = document.getElementById("show-grid-checkbox");
@@ -13,6 +12,7 @@ container.style.width = `${containerLength}px`;
 container.style.height = `${containerLength}px`;
 
 const createGridBy = (gridSize) => {
+  const divToAdd = document.createDocumentFragment();
   for (let i = 0; i < gridSize * gridSize; i++) {
     const newDiv = document.createElement("div");
     newDiv.className = "tile";
@@ -27,6 +27,7 @@ const createGridBy = (gridSize) => {
     divToAdd.appendChild(newDiv);
   }
   container.appendChild(divToAdd);
+  checkGridDisplay();
 };
 
 const clearGrid = () => {
@@ -53,18 +54,32 @@ const changeGridSize = () => {
   }
   clearGrid();
   createGridBy(numberOfTiles);
+  checkGridDisplay();
+};
+
+const showGrid = () => {
+  const tiles = document.querySelectorAll(".tile");
+  tiles.forEach((tile) => {
+    tile.style.border = "1px solid lightgray";
+  });
+};
+
+const hideGrid = () => {
+  const tiles = document.querySelectorAll(".tile");
+  tiles.forEach((tile) => {
+    tile.style.border = "0px";
+  });
+};
+
+const checkGridDisplay = () => {
+  showGridCheckbox.checked ? showGrid() : hideGrid();
 };
 
 showGridCheckbox.addEventListener("change", (e) => {
-  const tiles = document.querySelectorAll(".tile");
   if (e.target.checked) {
-    tiles.forEach((tile) => {
-      tile.style.border = "1px solid";
-    });
+    showGrid();
   } else {
-    tiles.forEach((tile) => {
-      tile.style.border = "0px";
-    });
+    hideGrid();
   }
 });
 

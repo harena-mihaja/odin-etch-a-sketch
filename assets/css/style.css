@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+:root {
+  --tea-green: hsl(74, 32%, 76%);
+  --tea-green-dark: hsl(74, 32%, 50%);
+  --tea-green-darker: hsl(74, 32%, 15%);
+  --beige: #e9edc9ff;
+  --cornsilk: #fefae0ff;
+  --papaya-whip: #faedcdff;
+  --buff: #d4a373ff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,8 +17,59 @@
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
+h1 {
+  margin-bottom: 8px;
+}
+
+body {
+  background: var(--cornsilk);
+  color: var(--tea-green-darker);
+}
+
 #container {
-  border: 1px solid;
   display: flex;
   flex-wrap: wrap;
+}
+.wrapper {
+  border: 1px solid var(--papaya-whip);
+  background-color: white;
+}
+
+header {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-container {
+  display: flex;
+  gap: 16px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--tea-green);
+  padding-block: 8px;
+}
+.btn {
+  padding: 4px 16px;
+  background-color: var(--tea-green);
+  border: 1px solid var(--tea-green-dark);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--tea-green-darker);
 }
