@@ -1,4 +1,7 @@
 const container = document.getElementById("container");
+// Prevent container from being draggable
+container.setAttribute("draggable", "false");
+container.addEventListener("dragstart", (e) => e.preventDefault());
 const colorInput = document.getElementById("color-input");
 const randomizeCheckbox = document.getElementById("randomize-checkbox");
 const showGridCheckbox = document.getElementById("show-grid-checkbox");
@@ -17,13 +20,8 @@ const createGridBy = (gridSize) => {
     const newDiv = document.createElement("div");
     newDiv.className = "tile";
     newDiv.style.width = `${containerLength / numberOfTiles}px`;
-    newDiv.addEventListener("mouseover", () => {
-      newDiv.style.backgroundColor = randomizeCheckbox.checked
-        ? `rgb(${Math.random() * 255},${Math.random() * 255} ,${
-            Math.random() * 255
-          })`
-        : `${colorInput.value}`;
-    });
+    newDiv.setAttribute("draggable", "false");
+    newDiv.addEventListener("dragstart", (e) => e.preventDefault());
     divToAdd.appendChild(newDiv);
   }
   container.appendChild(divToAdd);
@@ -82,5 +80,28 @@ showGridCheckbox.addEventListener("change", (e) => {
     hideGrid();
   }
 });
+
+const drawOnDivs = (e) => {
+  e.target.style.backgroundColor = randomizeCheckbox.checked
+    ? `rgb(${Math.random() * 255},${Math.random() * 255} ,${
+        Math.random() * 255
+      })`
+    : `${colorInput.value}`;
+};
+
+container.addEventListener("mousedown", () => {
+  container.addEventListener("mousemove", drawOnDivs);
+  window.addEventListener("mouseup", removeDrawListener);
+});
+
+function removeDrawListener() {
+  container.removeEventListener("mousemove", drawOnDivs);
+  window.removeEventListener("mouseup", removeDrawListener);
+}
+
+const eraser = () => {
+  randomizeCheckbox.checked = false;
+  colorInput.value = "#ffffff";
+};
 
 createGridBy(numberOfTiles);
