@@ -96,6 +96,7 @@ const addDrawingOnTile = () => {
   tiles.forEach((tile) => {
     let opacity = 0;
     let { red, blue, green } = getRandomColor();
+    // Draw on mouseover if mouse is down
     tile.addEventListener("mouseover", () => {
       if (isClicked) {
         if (opacity !== 1) {
@@ -106,10 +107,20 @@ const addDrawingOnTile = () => {
         }
       }
     });
+
+    // Draw immediately on mousedown
+    tile.addEventListener("mousedown", (e) => {
+      if (opacity !== 1) {
+        opacity += 0.1;
+        tile.style.backgroundColor = randomizeCheckbox.checked
+          ? `rgba(${red}, ${blue}, ${green},${opacity})`
+          : `${colorInput.value}`;
+      }
+    });
   });
 };
 
-window.addEventListener("mousedown", () => {
+container.addEventListener("mousedown", (e) => {
   isClicked = true;
   window.addEventListener("mouseup", () => {
     isClicked = false;
