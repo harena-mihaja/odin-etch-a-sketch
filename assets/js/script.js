@@ -1,18 +1,18 @@
 const container = document.getElementById("container");
-// Prevent container from being draggable
-container.setAttribute("draggable", "false");
-container.addEventListener("dragstart", (e) => e.preventDefault());
 const colorInput = document.getElementById("color-input");
 const randomizeCheckbox = document.getElementById("randomize-checkbox");
 const showGridCheckbox = document.getElementById("show-grid-checkbox");
-
-let color = colorInput.value;
-let numberOfTiles = 16; //square per side;
+let isClicked = false;
+const defaultSize = 16;
+let numberOfTiles = defaultSize; //square per side;
 let containerLength = 600; //px per side
 
 //define container width and height
 container.style.width = `${containerLength}px`;
 container.style.height = `${containerLength}px`;
+// Prevent container from being draggable
+container.setAttribute("draggable", "false");
+container.addEventListener("dragstart", (e) => e.preventDefault());
 
 const createGridBy = (gridSize) => {
   const divToAdd = document.createDocumentFragment();
@@ -26,6 +26,7 @@ const createGridBy = (gridSize) => {
   }
   container.appendChild(divToAdd);
   checkGridDisplay();
+  addDrawingOnTile();
 };
 
 const clearGrid = () => {
@@ -81,23 +82,39 @@ showGridCheckbox.addEventListener("change", (e) => {
   }
 });
 
-const drawOnDivs = (e) => {
-  e.target.style.backgroundColor = randomizeCheckbox.checked
-    ? `rgb(${Math.random() * 255},${Math.random() * 255} ,${
-        Math.random() * 255
-      })`
-    : `${colorInput.value}`;
+const getRandomColor = () => {
+  let randomColor = {
+    red: Math.random() * 255,
+    blue: Math.random() * 255,
+    green: Math.random() * 255,
+  };
+  return randomColor;
 };
 
-container.addEventListener("mousedown", () => {
-  container.addEventListener("mousemove", drawOnDivs);
-  window.addEventListener("mouseup", removeDrawListener);
-});
+const addDrawingOnTile = () => {
+  const tiles = document.querySelectorAll(".tile");
+  tiles.forEach((tile) => {
+    let opacity = 0;
+    let { red, blue, green } = getRandomColor();
+    tile.addEventListener("mouseover", () => {
+      if (isClicked) {
+        if (opacity !== 1) {
+          opacity += 0.1;
+          tile.style.backgroundColor = randomizeCheckbox.checked
+            ? `rgba(${red}, ${blue}, ${green},${opacity})`
+            : `${colorInput.value}`;
+        }
+      }
+    });
+  });
+};
 
-function removeDrawListener() {
-  container.removeEventListener("mousemove", drawOnDivs);
-  window.removeEventListener("mouseup", removeDrawListener);
-}
+window.addEventListener("mousedown", () => {
+  isClicked = true;
+  window.addEventListener("mouseup", () => {
+    isClicked = false;
+  });
+});
 
 const eraser = () => {
   randomizeCheckbox.checked = false;
